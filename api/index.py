@@ -274,7 +274,5 @@ def get_weather():
     except Exception as err:
         return jsonify({"error": f"Unexpected error: {str(err)}"}), 500
 
-# --- WSGI Handler for Vercel ---
-def handler(environ, start_response):
-    """WSGI handler required for Vercel serverless deployment"""
-    return app(environ, start_response)
+
+# Expose the Flask app as 'app' for Vercel
