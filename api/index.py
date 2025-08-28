@@ -3,7 +3,7 @@ import random
 import datetime
 import requests
 import math
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, jsonify, render_template, request, send_from_directory
 from functools import lru_cache
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
@@ -165,6 +165,12 @@ def convert_temperature(value, unit):
     return round(value, 1) if unit == "celsius" else c_to_f(value)
 
 # --- Flask Routes ---
+
+# Serve favicon.ico from static/images
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.static_folder, 'images'),
+                               'weather-app.png', mimetype='image/png')
 @app.route("/")
 def index():
     return render_template("index.html")
